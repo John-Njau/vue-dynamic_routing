@@ -1,33 +1,38 @@
 <template>
   <section>
     <h1>Jobs</h1>
-    <div class="jobs" v-for="job in jobs" :key="job.id">
+    <div v-if="jobs.length">
+     <div class="jobs" v-for="job in jobs" :key="job.id">
       <router-link :to="{ name: 'JobDetails', params: { id: job.id } }">
         <h2>{{ job.title }}</h2>
       </router-link>
     </div>
+    </div>
+    <div v-else>
+      <p>Loading jobs ...</p>
+    </div>
+   
   </section>
 </template>
 <script>
 export default {
   data() {
     return {
-      jobs: [
-      ]
+      jobs: [],
     };
   },
-  mounted(){
+  mounted() {
     // async and returns a promise
-    fetch('http://localhost:3000/jobs')
-    .then(res => res.json())
-    .then(data => this.jobs = data)
-    .catch(err => console.log(err.message))
-  }
+    fetch("http://localhost:3000/jobs")
+      .then((res) => res.json())
+      .then((data) => (this.jobs = data))
+      .catch((err) => console.log(err.message));
+  },
 };
 </script>
 
 <style scoped>
-.jobs h2{
+.jobs h2 {
   background-color: rgb(243, 224, 224);
   padding: 20px;
   border-radius: 10px;
@@ -36,11 +41,11 @@ export default {
   cursor: pointer;
   color: #444;
 }
-.jobs h2:hover{
-  background-color: #ddd
+.jobs h2:hover {
+  background-color: #ddd;
 }
 
-.jobs a{
-  text-decoration:none;
+.jobs a {
+  text-decoration: none;
 }
 </style>
