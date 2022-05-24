@@ -13,12 +13,16 @@ export default {
   data() {
     return {
       jobs: [
-        { title: "Designer", id: 1, details: "wa manguo" },
-        { title: "baker", id: 2, details: "wa makeki" },
-        { title: "developer", id: 3, details: "wa Vue" },
-      ],
+      ]
     };
   },
+  mounted(){
+    // async and returns a promise
+    fetch('http://localhost:3000/jobs')
+    .then(res => res.json())
+    .then(data => this.jobs = data)
+    .catch(err => console.log(err.message))
+  }
 };
 </script>
 
